@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Montserrat&family=Open+Sans&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Saylani Learning Vault</title>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            saylani<span>vault</span>
+        </a>
+        <div class="search-bar">
+            <i class="fas fa-search" style="color:#8b949e;"></i>
+            <input type="search" id="lectureSearch" placeholder="Search by title...">
+        </div>
+        <button class="btn-portal" id="adminBtn">
+            Admin Login
+        </button>
+    </nav>
+
+    <div class="app-container">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" id="homeLink">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="historyLink">
+                        <i class="fas fa-history"></i>
+                        <span>Watch History</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="resetBtn" style="color: var(--danger); margin-top:50px;">
+                        <i class="fas fa-trash"></i>
+                        <span>Reset App</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+            <section id="homeView">
+                <div class="video-grid">
+                    <!-- LEFT SIDE PLAYER -->
+                    <div class="player-container">
+                        <div class="video-frame">
+                            <iframe id="mainPlayer" width="100%" height="100%" src="" frameborder="0"
+                                allowfullscreen></iframe>
+                        </div>
+
+                        <div class="video-info">
+                            <h1 id="playingTitle">
+                                Welcome to Student Portal
+                            </h1>
+                            <p id="playingCat">
+                                Select a lecture from the playlist to start learning.
+                            </p>
+                        </div>
+
+                        <!-- NOTES SECTION -->
+
+                        <div class="notes-section">
+                            <h3>
+                                <i class="fa-solid fa-pen-nib"></i>
+                                Lecture Notes
+                            </h3>
+                            <div class="note-input-container">
+                                <input type="text" placeholder="Type an important point..." class="custom-input"
+                                    id="noteInput">
+                                <button class="btn-portal" id="saveNoteBtn" style="border-radius:12px;height:50px;">
+                                    Save
+                                </button>
+                            </div>
+
+                            <div id="notesContainer">
+                                <!-- notes go here -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- RIGHT SIDE PLAYLIST -->
+
+                    <div class="playlist-area">
+                        <div class="playlist-header">
+                            <h3>Course Playlist</h3>
+                            <span id="vidCount">
+                                0 videos
+                            </span>
+
+                        </div>
+
+
+                        <div id="playlistItems" class="playlist-container">
+                            <!-- JS playlist cards -->
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+
+
+
+    <div class="modal-overlay" id="loginModal" style="display: none;">
+        <div class="modal-content">
+            <h3><i class="fas fa-lock"></i> Admin Access</h3>
+            <p>please enter credintials to manage the vault</p>
+            <div class="form-group">
+                <input type="email" class="custom-input" placeholder="Email (ex: 123@mail.com)" id="adminEmail">
+            </div>
+            <div class="form-group">
+                <input type="password" class="custom-input" placeholder="type password (*****)" id="adminPassword">
+            </div>
+
+            <div class="modal-actions">
+                <button id="loginSubmitBtn" class="btn-portal">
+                    Login
+                </button>
+                <button class="btn-portal btn-secondary" id="closeLoginBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal-overlay" id="addVideoModal" style="display: none;"> 
+        <div class="modal-content admin-form">
+            <h3><i class="fas fa-plus-circle"></i> Add new recordings</h3>
+            <div class="form-group">
+                <label>Lecture Title</label>
+                <input type="text" placeholder="e.g: javascript array" class="custom-input" id="newTitle">
+            </div>
+            <div class="form-group">
+                <label>Youtube Video Id</label>
+                <input type="text" placeholder="e.g: dQw4w9WgXcQ" id="newVidID" class="custom-input">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select id="newCat" class="custom-input ">
+                    <option style="color: white; background-color: var(--bg-card);" value="Javascript">Javascript</option>
+                    <option style="color: white; background-color: var(--bg-card);" value="Phyton">Phyton</option>
+                    <option style="color: white; background-color: var(--bg-card);" value="ReactJS">React js</option>
+                    <option style="color: white; background-color: var(--bg-card);" value="HTML/CSS">Html / CSS</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Duration</label>
+                <input type="text" id="newTime" class="custom-input" placeholder="e.g. 15:30">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-portal" id="saveVideoBtn">Upload to Vault</button>
+                <button class="btn-portal btn-secondary" id="closeAddBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script>
+    const firebaseConfig ={  
+        apiKey: "AIzaSyDms_gBzCMN3-hK4VrTFra1z3tGaAMRnuo",
+  authDomain: "saylani-vault-56dab.firebaseapp.com",
+  projectId: "saylani-vault-56dab",
+  storageBucket: "saylani-vault-56dab.firebasestorage.app",
+  messagingSenderId: "328657000678",
+  appId: "1:328657000678:web:c69b1a890324d5bdd94327"};
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+  
+</script>
+    <script src="app.js"></script>
+</body>
+
+</html>
